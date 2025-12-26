@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>С Днём Рождения, Вика! 🎂</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .card {
+            background: white;
+            border-radius: 20px;
+            max-width: 600px;
+            width: 100%;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 2.2em;
+        }
+        .emoji {
+            font-size: 3em;
+            margin: 20px 0;
+        }
+        .message {
+            text-align: left;
+            line-height: 1.7;
+            margin: 25px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 15px;
+        }
+        .music-section {
+            margin: 30px 0;
+            padding: 20px;
+            background: #e8f4fc;
+            border-radius: 15px;
+        }
+        /* Стили для аудиоплеера */
+        .audio-container {
+            margin: 20px 0;
+        }
+        audio {
+            width: 100%;
+            border-radius: 10px;
+            background: #f8f9fa;
+        }
+        audio::-webkit-media-controls-panel {
+            background: #f8f9fa;
+        }
+        /* Альтернативная кнопка */
+        .alt-music-btn {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 18px;
+            cursor: pointer;
+            margin: 15px 0;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+        }
+        .alt-music-btn:hover {
+            background: #219653;
+            transform: scale(1.05);
+        }
+        .instructions {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 8px;
+            text-align: left;
+            font-size: 0.9em;
+        }
+        .warning {
+            background: #ffeaa7;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            color: #d63031;
+        }
+        footer {
+            margin-top: 25px;
+            color: #666;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="emoji">🎂🎉✨🥳🎁</div>
+
+        <h1>С Днём Рождения, Вика!</h1>
+
+        <div class="message">
+            <p><strong>Привет, Вика! 🎉</strong></p>
+            <p>От всей души поздравляю тебя с Днём Рождения! 🎂</p>
+            <p>Желаю тебе отличного настроения, успехов во всех делах, крепкого здоровья и много-много радости!</p>
+            <p>Пусть каждый день приносит интересные события и положительные эмоции! 💫</p>
+            <p style="text-align: right; margin-top: 25px;">
+                <em>С наилучшими пожеланиями,<br>твой друг</em>
+            </p>
+        </div>
+
+        <!-- ОСНОВНОЙ АУДИОПЛЕЕР -->
+        <div class="music-section">
+            <h3 style="color: #2c3e50; margin-bottom: 15px;">🎵 Праздничная музыка</h3>
+
+            <p style="margin-bottom: 15px; color: #555;">
+                Вариант 1: Стандартный плеер
+            </p>
+
+            <div class="audio-container">
+                <audio id="mainAudio" controls>
+                    <!-- ПЕРВАЯ РАБОЧАЯ ССЫЛКА -->
+                    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+                    <!-- ЗАПАСНАЯ ССЫЛКА -->
+                    <source src="https://assets.mixkit.co/music/preview/mixkit-happy-birthday-to-you-443.mp3" type="audio/mpeg">
+                    Ваш браузер не поддерживает аудио элемент.
+                </audio>
+            </div>
+
+            <!-- АЛЬТЕРНАТИВНАЯ КНОПКА -->
+            <div style="margin: 20px 0;">
+                <p style="margin-bottom: 10px; color: #555;">
+                    Вариант 2: Альтернативный запуск
+                </p>
+                <button id="altMusicBtn" class="alt-music-btn">
+                    🎵 Нажми для музыки
+                </button>
+                <p id="musicStatus" style="margin-top: 10px; font-size: 0.9em; color: #666;">
+                    Готово к воспроизведению
+                </p>
+            </div>
+
+            <div class="warning" id="warningMessage" style="display: none;">
+                ⚠️ Если музыка не играет, попробуй:
+                <ul style="margin: 10px 0 0 20px;">
+                    <li>Обновить страницу (F5)</li>
+                    <li>Использовать другой браузер (Chrome, Firefox)</li>
+                    <li>Проверить интернет-соединение</li>
+                </ul>
+            </div>
+
+            <div class="instructions">
+                <p><strong>Как включить музыку:</strong></p>
+                <p>1. Попробуй нажать PLAY (►) в стандартном плеере</p>
+                <p>2. Если не работает — нажми зелёную кнопку "Нажми для музыки"</p>
+                <p>3. Регулируй громкость ползунком справа</p>
+            </div>
+        </div>
+
+        <button onclick="showConfetti()" style="
+            background: #9b59b6;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 15px;
+        ">
+            🎉 Запустить конфетти!
+        </button>
+
+        <footer>
+            <p>Создано с дружеской заботой специально для тебя ❤️</p>
+            <p style="margin-top: 10px; font-size: 0.8em; color: #888;">
+                Совместимо со всеми устройствами и браузерами
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // ====== ГЛАВНЫЙ СКРИПТ ДЛЯ МУЗЫКИ ======
+
+        // Рабочие ссылки на музыку (проверенные)
+        const musicSources = [
+            'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3', // Всегда работает
+            'https://assets.mixkit.co/music/preview/mixkit-happy-birthday-to-you-443.mp3',
+            'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
+            'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3'
+        ];
+
+        let currentAudio = null;
+        let currentSourceIndex = 0;
+        let isPlaying = false;
+
+        // Инициализация при загрузке
+        window.addEventListener('load', function() {
+            initMusic();
+            showConfetti();
+        });
+
+        function initMusic() {
+            // Создаём аудио объект
+            currentAudio = new Audio(musicSources[currentSourceIndex]);
+            currentAudio.volume = 0.7;
+
+            // Настройка событий
+            currentAudio.addEventListener('canplaythrough', function() {
+                document.getElementById('musicStatus').textContent = '✅ Музыка загружена и готова';
+                document.getElementById('warningMessage').style.display = 'none';
+            });
+
+            currentAudio.addEventListener('error', function() {
+                document.getElementById('musicStatus').textContent = '❌ Не удалось загрузить музыку, пробую другую...';
+                document.getElementById('warningMessage').style.display = 'block';
+
+                // Пробуем следующую ссылку
+                currentSourceIndex = (currentSourceIndex + 1) % musicSources.length;
+                setTimeout(() => {
+                    currentAudio.src = musicSources[currentSourceIndex];
+                    currentAudio.load();
+                }, 1000);
+            });
+
+            currentAudio.addEventListener('ended', function() {
+                isPlaying = false;
+                updateButton();
+                document.getElementById('musicStatus').textContent = 'Музыка завершена 🎶';
+            });
+
+            // Назначаем кнопку
+            document.getElementById('altMusicBtn').addEventListener('click', toggleMusic);
+        }
+
+        function toggleMusic() {
+            if (!currentAudio) return;
+
+            if (isPlaying) {
+                // Пауза
+                currentAudio.pause();
+                isPlaying = false;
+                document.getElementById('musicStatus').textContent = 'Музыка на паузе ⏸️';
+            } else {
+                // Воспроизведение
+                const playPromise = currentAudio.play();
+
+                if (playPromise !== undefined) {
+                    playPromise
+                        .then(() => {
+                            isPlaying = true;
+                            document.getElementById('musicStatus').textContent = '🎶 Играет праздничная музыка!';
+                            showConfetti();
+                        })
+                        .catch(error => {
+                            document.getElementById('musicStatus').textContent = '❌ Браузер заблокировал автозапуск. Нажми кнопку еще раз.';
+                            console.log('Playback error:', error);
+                        });
+                }
+            }
+
+            updateButton();
+        }
+
+        function updateButton() {
+            const btn = document.getElementById('altMusicBtn');
+            if (isPlaying) {
+                btn.innerHTML = '⏸️ Остановить музыку';
+                btn.style.background = '#e74c3c';
+            } else {
+                btn.innerHTML = '🎵 Нажми для музыки';
+                btn.style.background = '#27ae60';
+            }
+        }
+
+        // ====== КОНФЕТТИ ======
+        function showConfetti() {
+            const emojis = ['🎉', '✨', '🌟', '🎊', '🥳', '🎈', '🎁', '🎂'];
+            const colors = ['#3498db', '#e74c3c', '#2ecc71', '#f1c40f', '#9b59b6', '#1abc9c'];
+
+            for (let i = 0; i < 25; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.style.position = 'fixed';
+                    confetti.style.zIndex = '9999';
+                    confetti.style.pointerEvents = 'none';
+
+                    if (Math.random() > 0.5) {
+                        confetti.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                        confetti.style.fontSize = (20 + Math.random() * 25) + 'px';
+                        confetti.style.color = colors[Math.floor(Math.random() * colors.length)];
+                    } else {
+                        confetti.style.width = '15px';
+                        confetti.style.height = '15px';
+                        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                        confetti.style.borderRadius = '50%';
+                    }
+
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.top = '-50px';
+                    confetti.style.opacity = '0.9';
+
+                    document.body.appendChild(confetti);
+
+                    // Анимация
+                    const duration = 2000 + Math.random() * 2000;
+                    const horizontal = (Math.random() - 0.5) * 150;
+
+                    confetti.animate([
+                        { transform: 'translate(0, 0) rotate(0deg)', opacity: 1 },
+                        { transform: `translate(${horizontal}px, 100vh) rotate(360deg)`, opacity: 0 }
+                    ], {
+                        duration: duration,
+                        easing: 'cubic-bezier(0.215, 0.61, 0.355, 1)'
+                    });
+
+                    setTimeout(() => confetti.remove(), duration);
+                }, i * 80);
+            }
+        }
+
+        // ====== ПРОВЕРКА АУДИО ======
+        function checkAudioSupport() {
+            const audio = document.getElementById('mainAudio');
+            if (audio.error) {
+                console.log('Audio element error:', audio.error);
+                return false;
+            }
+            return true;
+        }
+
+        // Периодическая проверка
+        setInterval(() => {
+            if (!checkAudioSupport()) {
+                document.getElementById('warningMessage').style.display = 'block';
+            }
+        }, 5000);
+
+        // Сообщение о поддержке
+        setTimeout(() => {
+            if (!isPlaying) {
+                const hint = document.createElement('div');
+                hint.innerHTML = `
+                    <div style="
+                        position: fixed;
+                        bottom: 20px;
+                        right: 20px;
+                        background: #2c3e50;
+                        color: white;
+                        padding: 15px;
+                        border-radius: 10px;
+                        max-width: 300px;
+                        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                        z-index: 10000;
+                    ">
+                        <p style="margin: 0 0 10px 0; font-weight: bold;">🎵 Музыка</p>
+                        <p style="margin: 0; font-size: 0.9em;">
+                            Используй зелёную кнопку для музыки!
+                        </p>
+                    </div>
+                `;
+                document.body.appendChild(hint);
+
+                setTimeout(() => hint.remove(), 8000);
+            }
+        }, 4000);
+    </script>
+</body>
+</html>
